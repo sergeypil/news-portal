@@ -1,0 +1,11 @@
+<hibernate-mapping package="com.epam.entity">
+    <class name="com.epam.entity.Article" table='C##ADMIN."article"'>
+        <id name="id" type="long" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="title" type="string" column="title"/>
+        <property name="brief" type="string" column="brief"/>
+        <property name="content" type="string" column="content"/>
+        <property name="created" type="java.util.Date" column="created"/>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,30 @@
+<div>
+    <div class="menu" [hidden]="!isOpenConfirm">
+        <div>Do you really want to delete the article?</div>
+        <div>
+            <a class="btn btn-danger" (click)="deleteArticles()">Yes</a>
+            <a class="btn btn-primary" (click)="isOpenConfirm=false">No</a>
+        </div>
+    </div>
+    <form (ngSubmit)="openConfirmMenu(form)" #form="ngForm">
+        <table>
+            <tbody *ngFor="let article of articles">
+                <tr>
+                    <td class="title">{{article.title}}</td>
+                    <td>{{article.created | date: 'dd/MM/yyyy'}}</td>
+                </tr>
+                <tr class="line">
+                    <td>{{article.brief}}</td>
+                    <td>
+                        <a class="btn btn-primary" [routerLink]="['/article', article.id]">view</a>
+                        <a class="btn btn-primary" [routerLink]="['/admin/new-article', article.id]">edit</a>
+                        <input type="checkbox" [checked]="article.checked"
+                            (change)="article.checked = !article.checked">Select
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="submit" class="btn btn-primary" value="Delete">
+    </form>
+
+</div>

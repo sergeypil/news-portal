@@ -1,0 +1,8 @@
+<div>
+    <span *ngFor="let article of articles">
+        <a [routerLink]="['/article', article.id]">
+            <p>{{article.created | date:"HH:mm"}} {{article.title}}</p>
+        </a>
+        <hr>
+    </span>
+</div>

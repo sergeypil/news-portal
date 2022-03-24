@@ -1,0 +1,47 @@
+<div class="container border">
+    <div class="menu" [hidden]="!isOpenConfirm">
+        <div>Do you really want to delete the article?</div>
+        <div>
+            <a class="btn btn-danger" (click)="deleteArticle()">Yes</a>
+            <a class="btn btn-primary" (click)="isOpenConfirm=false">No</a>
+        </div>
+    </div>
+    <table>
+        <tr>
+            <td class="col-name">
+                Article title
+            </td>
+            <td>
+                {{article.title}}
+            </td>
+        </tr>
+        <tr>
+            <td class="col-name">
+                Article date
+            </td>
+            <td>
+                {{article.created| date: 'dd/MM/yyyy'}}
+            </td>
+        </tr>
+        <tr>
+            <td class="col-name">
+                Brief
+            </td>
+            <td>
+                {{article.brief}}
+            </td>
+        </tr>
+        <tr>
+            <td class="col-name">
+                Content
+            </td>
+            <td>
+                {{article.content}}
+            </td>
+        </tr>
+    </table>
+    <div class="buttons">
+        <a class="btn btn-primary" [routerLink]="['/admin/new-article/', article.id]">EDIT</a>
+        <button class="btn btn-primary" (click)="openConfirmMenu()">DELETE</button>
+    </div>
+</div>

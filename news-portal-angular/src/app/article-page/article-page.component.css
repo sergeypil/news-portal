@@ -1,0 +1,28 @@
+.border {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+span {
+    padding-left: 30px;
+}
+
+.col-name {
+    padding-right: 30px;
+    color: grey;
+}
+
+.buttons {
+    padding-top: 30px;
+}
+.btn {
+    margin-left: 30px;
+}
+
+.menu {
+    padding: 10px;
+    background-color:  rgb(223, 140, 114);
+    display: flex;
+    justify-content: center;
+}
+

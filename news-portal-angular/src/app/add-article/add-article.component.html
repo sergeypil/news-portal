@@ -1,0 +1,35 @@
+<div>
+    <h3 *ngIf="isAddMode">Creatting new article</h3>
+    <h3 *ngIf="!isAddMode">Editing article with id {{article.id}}</h3>
+    <form (ngSubmit)="createArticle(form)" #form="ngForm">
+        <div class="form-group">
+            <label for="title">Article title</label>
+            <input type="text" class="form-control" id="title" [ngModel]="article.title" name="title" required
+                maxlength="40" #title="ngModel" [ngClass]="{'is-invalid': title.invalid && title.touched}">
+            <p *ngIf=" title.invalid && title.touched" class="text-danger">Title cannot be empty and contain more
+                than
+                40 symbols</p>
+        </div>
+        <div class="form-group">
+            <label for="date">Article date</label>
+            <input class="form-control" id="date" type="date" [ngModel]="article.created | date:'yyyy-MM-dd'"
+                name="date" required #date="ngModel" [ngClass]="{'is-invalid': date.invalid && date.touched}">
+        </div>
+        <p *ngIf=" date.invalid && date.touched" class="text-danger">Date cannot be empty</p>
+        <div class="form-group">
+            <label for="brief">Brief</label>
+            <textarea class="form-control" id="brief" rows="3" [ngModel]="article.brief" name="brief" required
+                #brief="ngModel" [ngClass]="{'is-invalid': brief.invalid && brief.touched}"></textarea>
+        </div>
+        <p *ngIf=" brief.invalid && brief.touched" class="text-danger">Brief cannot be empty</p>
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea class="form-control" id="content" rows="10" [ngModel]="article.content" name="content" required
+                #content="ngModel" [ngClass]="{'is-invalid': content.invalid && content.touched}"></textarea>
+        </div>
+        <p *ngIf=" content.invalid && content.touched" class="text-danger">Content cannot be empty</p>
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Save</button>
+
+        <a routerLink="/admin/articles" class="btn btn-primary">Cancel</a>
+    </form>
+</div>

@@ -1,0 +1,9 @@
+.aside-panel {
+    background-color: rgb(207, 207, 207);
+    padding: 10px;
+    min-height: 100%;
+}
+a {
+    padding: 10px;
+    color: black;
+}
