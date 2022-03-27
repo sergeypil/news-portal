@@ -17,6 +17,7 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { AdminArticlesComponent } from './admin-articles/admin-articles.component';
 import { FormsModule } from '@angular/forms';
 import { ArticlePageComponent } from './article-page/article-page.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { ArticlePageComponent } from './article-page/article-page.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [ArticleService],
+  providers: [ArticleService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

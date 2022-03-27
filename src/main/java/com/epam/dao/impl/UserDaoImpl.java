@@ -1,6 +1,7 @@
 package com.epam.dao.impl;
 
 import com.epam.dao.UserDao;
+import com.epam.entity.Article;
 import com.epam.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -26,5 +27,24 @@ public class UserDaoImpl implements UserDao {
         Session session = sessionFactory.getCurrentSession();
         Query<User> query = session.createQuery("from User", User.class);
         return query.getResultList();
+    }
+
+    @Transactional
+    @Override
+    public User getUserById(long id) {
+        Session session = sessionFactory.getCurrentSession();
+        User user = session.get(User.class, id);
+        return user;
+    }
+
+    @Transactional
+    @Override
+    public User getUserByUsername(String username) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<User> query = session.createQuery("FROM User WHERE username=:usernameParam",
+                User.class);
+        query.setParameter("usernameParam", username);
+        User user = query.uniqueResult();
+        return user;
     }
 }

@@ -43,8 +43,8 @@ public class HibernateConfig {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
         dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
-        dataSource.setUsername("SYSTEM");
-        dataSource.setPassword("pass");
+        dataSource.setUsername("c##news");
+        dataSource.setPassword("123");
         return dataSource;
     }
 
@@ -61,7 +61,7 @@ public class HibernateConfig {
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle12cDialect");
         hibernateProperties.setProperty("hibernate.show_sql", "true");
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "validate");
         return hibernateProperties;
     }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Article {
@@ -175,24 +175,35 @@ export class ArticleService {
   ]
 
 
-  public create(article: Article) {
-    return this.httpClient.post("http://localhost:8080/news_portal_war/newapi/articles", article);
+  create(article: Article) {
+    return this.httpClient.post("http://localhost:8080/news_portal_war/newapi/articles", article, { headers: this.authHeader() });
   }
 
   getArticles() {
-    return this.httpClient.get("http://localhost:8080/news_portal_war/newapi/articles");
+    return this.httpClient.get("http://localhost:8080/news_portal_war/newapi/articles", { headers: this.authHeader() });
   }
 
   getArticleById(id: String) {
-    return this.httpClient.get("http://localhost:8080/news_portal_war/newapi/articles/" + id);
+    return this.httpClient.get("http://localhost:8080/news_portal_war/newapi/articles/" + id, { headers: this.authHeader() });
   }
 
   editArticleById(article: Article) {
-    return this.httpClient.put("http://localhost:8080/news_portal_war/newapi/articles/", article);
+    return this.httpClient.put("http://localhost:8080/news_portal_war/newapi/articles/", article, { headers: this.authHeader() });
   }
 
   deleteArticleById(id: String) {
-    return this.httpClient.delete("http://localhost:8080/news_portal_war/newapi/articles/" + id);
+    return this.httpClient.delete("http://localhost:8080/news_portal_war/newapi/articles/" + id, { headers: this.authHeader() });
   }
+
+  authHeader() {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+    if (user && user.token) {
+      return { "Authorization": "Bearer " + user.token };
+    } else {
+      return { "Authorization": "" };
+    }
+  }
+
 
 }

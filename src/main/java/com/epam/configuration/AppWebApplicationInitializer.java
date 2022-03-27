@@ -15,9 +15,10 @@ public class AppWebApplicationInitializer implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-        ctx.scan("com.epam");
+        ctx.scan("com.epam", "com.epam.security");
         ctx.setServletContext(servletContext);
         servletContext.addListener(new ContextLoaderListener(ctx));
+        servletContext.addFilter("cors", new CorsFilter());
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(ctx));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
