@@ -1,9 +1,9 @@
 <div>
     <div class="menu" [hidden]="!isOpenConfirm">
-        <div>Do you really want to delete the article?</div>
+        <div>{{'Confirm many delete' |translate}}</div>
         <div>
-            <a class="btn btn-danger" (click)="deleteArticles()">Yes</a>
-            <a class="btn btn-primary" (click)="isOpenConfirm=false">No</a>
+            <a class="btn btn-danger" (click)="deleteArticles()">{{'Yes' |translate}}</a>
+            <a class="btn btn-primary" (click)="isOpenConfirm=false">{{'No' |translate}}</a>
         </div>
     </div>
     <form (ngSubmit)="openConfirmMenu(form)" #form="ngForm">
@@ -16,15 +16,16 @@
                 <tr class="line">
                     <td>{{article.brief}}</td>
                     <td>
-                        <a class="btn btn-primary" [routerLink]="['/article', article.id]">view</a>
-                        <a class="btn btn-primary" [routerLink]="['/admin/new-article', article.id]">edit</a>
+                        <a class="btn btn-primary" [routerLink]="['/article', article.id]">{{'View' |translate}}</a>
+                        <a class="btn btn-primary" [routerLink]="['/admin/new-article', article.id]">{{'Edit'
+                            |translate}}</a>
                         <input type="checkbox" [checked]="article.checked"
-                            (change)="article.checked = !article.checked">Select
+                            (change)="article.checked = !article.checked">
                     </td>
                 </tr>
             </tbody>
         </table>
-        <input type="submit" class="btn btn-primary" value="Delete">
+        <button type="submit" class="btn btn-primary">{{'Delete' |translate}}</button>
     </form>
 
 </div>

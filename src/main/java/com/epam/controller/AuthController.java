@@ -22,7 +22,6 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/apiauth/")
 public class AuthController {
-
     private final AuthenticationManager authenticationManager;
 
     private final JwtTokenProvider jwtTokenProvider;
@@ -50,7 +49,9 @@ public class AuthController {
             String token = jwtTokenProvider.createToken(user);
 
             Map<Object, Object> response = new HashMap<>();
-            response.put("username", username);
+            response.put("id", user.getId());
+            response.put("username", user.getUsername());
+            response.put("roles", user.getRoles());
             response.put("token", token);
 
             return ResponseEntity.ok(response);

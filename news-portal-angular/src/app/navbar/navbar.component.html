@@ -7,9 +7,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="">HOME</a>
-                <a class="nav-item nav-link" href="admin/articles" *ngIf="user.token!=null">ADMIN PAGE</a>
-                <a class="nav-item nav-link" href="login">LOGIN</a>
+                <a class="nav-item nav-link" href="">{{'HOME'|translate}}</a>
+                <a class="nav-item nav-link" href="admin/articles" *ngIf="isAdmin">{{'ADMIN PAGE'
+                    |translate}}</a>
+                <a class="nav-item nav-link" href="login" *ngIf="!user.username">{{'LOGIN' |translate}}</a>
+                <p class="nav-item nav-link" *ngIf="user.username">{{user.username}}</p>
+                <div class="language-picker-area">
+                    <div class="picker-label"></div>
+                    <select (change)="selectLanguage($event)" class="language-picker">
+                        <option value="en-US">English</option>
+                        <option value="ru">Русский</option>
+                    </select>
+                </div>
+                <a class="nav-item nav-link" href="" *ngIf="user.username" (click)="logout()">{{'LOGOUT'
+                    |translate}}</a>
             </div>
         </div>
     </nav>

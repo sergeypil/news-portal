@@ -18,7 +18,7 @@ public class AppWebApplicationInitializer implements WebApplicationInitializer {
         ctx.scan("com.epam", "com.epam.security");
         ctx.setServletContext(servletContext);
         servletContext.addListener(new ContextLoaderListener(ctx));
-        servletContext.addFilter("cors", new CorsFilter());
+        //servletContext.addFilter("cors", new CorsFilter());
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(ctx));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");

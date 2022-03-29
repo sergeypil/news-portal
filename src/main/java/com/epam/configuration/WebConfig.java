@@ -3,12 +3,15 @@ package com.epam.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+
+import java.io.IOException;
 
 @Configuration
 @EnableWebMvc
@@ -39,16 +42,6 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
 //    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.
-//                addMapping("/**").
-//                allowedOrigins("*").
-//                allowedMethods("*").
-//                allowedHeaders("*").
-//                allowCredentials(true);
-//    }
-
-//    @Override
 //    public void addCorsMappings(CorsRegistry corsRegistry) {
 //        corsRegistry.addMapping("/**")
 //                .allowedOrigins("*")
@@ -57,6 +50,13 @@ public class WebConfig implements WebMvcConfigurer {
 //                .allowedHeaders("*")
 //                .exposedHeaders("Authorization")
 //                .allowCredentials(true);
+//    }
+
+//    @Bean
+//    public static PropertySourcesPlaceholderConfigurer placeHolderConfigurer() throws IOException {
+//        PropertySourcesPlaceholderConfigurer conf = new PropertySourcesPlaceholderConfigurer();
+//        conf.setLocations(new ClassPathResource("logback.xml"));
+//        return conf;
 //    }
 
 }

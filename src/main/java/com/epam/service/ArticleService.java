@@ -10,4 +10,5 @@ public interface ArticleService {
     void save(Article article);
     void update(Article article);
     void deleteById(long id);
+    void deleteBySeveralIds(List<String> ids);
 }

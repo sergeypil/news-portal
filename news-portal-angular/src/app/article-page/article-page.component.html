@@ -1,15 +1,15 @@
 <div class="container border">
     <div class="menu" [hidden]="!isOpenConfirm">
-        <div>Do you really want to delete the article?</div>
+        <div>{{'Confirm delete' |translate}}</div>
         <div>
-            <a class="btn btn-danger" (click)="deleteArticle()">Yes</a>
-            <a class="btn btn-primary" (click)="isOpenConfirm=false">No</a>
+            <a class="btn btn-danger" (click)="deleteArticle()">{{'Yes' |translate}}</a>
+            <a class="btn btn-primary" (click)="isOpenConfirm=false">{{'No' |translate}}</a>
         </div>
     </div>
     <table>
         <tr>
             <td class="col-name">
-                Article title
+                {{'Title' |translate}}
             </td>
             <td>
                 {{article.title}}
@@ -17,7 +17,7 @@
         </tr>
         <tr>
             <td class="col-name">
-                Article date
+                {{'Date' |translate}}
             </td>
             <td>
                 {{article.created| date: 'dd/MM/yyyy'}}
@@ -25,7 +25,7 @@
         </tr>
         <tr>
             <td class="col-name">
-                Brief
+                {{'Brief' |translate}}
             </td>
             <td>
                 {{article.brief}}
@@ -33,7 +33,7 @@
         </tr>
         <tr>
             <td class="col-name">
-                Content
+                {{'Content' |translate}}
             </td>
             <td>
                 {{article.content}}
@@ -41,7 +41,7 @@
         </tr>
     </table>
     <div class="buttons">
-        <a class="btn btn-primary" [routerLink]="['/admin/new-article/', article.id]">EDIT</a>
-        <button class="btn btn-primary" (click)="openConfirmMenu()">DELETE</button>
+        <a class="btn btn-primary" [routerLink]="['/admin/new-article/', article.id]">{{'Edit' |translate}}</a>
+        <button class="btn btn-primary" (click)="openConfirmMenu()">{{'Delete' |translate}}</button>
     </div>
 </div>

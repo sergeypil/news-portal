@@ -8,17 +8,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ArticleServiceImpl implements ArticleService {
-    ArticleDao articleDao;
+    private final ArticleDao articleDao;
 
+    @Autowired
     public ArticleServiceImpl(ArticleDao articleDao) {
         this.articleDao = articleDao;
     }
-
-    public ArticleServiceImpl() {
-
-    }
-
 
     @Override
     public List<Article> getAllArticles() {
@@ -43,5 +40,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void deleteById(long id) {
         articleDao.deleteById(id);
+    }
+
+    @Override
+    public void deleteBySeveralIds(List<String> ids) {
+        articleDao.deleteBySeveralIds(ids);
     }
 }

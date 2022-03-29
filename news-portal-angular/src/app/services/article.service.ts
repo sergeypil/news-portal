@@ -195,6 +195,11 @@ export class ArticleService {
     return this.httpClient.delete("http://localhost:8080/news_portal_war/newapi/articles/" + id, { headers: this.authHeader() });
   }
 
+  deleteSeveralArticlesById(ids: Array<number>) {
+    const ids_storer = { "ids": ids };
+    return this.httpClient.post("http://localhost:8080/news_portal_war/newapi/articles/ids", ids_storer, { headers: this.authHeader() });
+  }
+
   authHeader() {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
 
