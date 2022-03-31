@@ -21,18 +21,12 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class HibernateConfig {
 
-    @Autowired
-    ApplicationContext applicationContext;
-
-
-
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new
                 LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("com.epam.entity");
-
         sessionFactory.setMappingDirectoryLocations(new Resource[]{new ClassPathResource("")});
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;

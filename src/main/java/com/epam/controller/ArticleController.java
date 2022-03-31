@@ -1,19 +1,17 @@
 package com.epam.controller;
 
-import com.epam.dao.impl.ArticleDaoImpl;
+import com.epam.dto.ArticleWithoutContent;
 import com.epam.dto.DeleteIdsRequest;
 import com.epam.entity.Article;
 import com.epam.service.ArticleService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/newapi/articles")
@@ -28,27 +26,39 @@ public class ArticleController {
     }
 
     @GetMapping
-    List<Article> getAllArticles() {
-        List<Article> articles = articleService.getAllArticles();
+    public List<Article> getAllArticles() {
+        List<Article> articles = articleService.getAll();
         return articles;
     }
 
     @GetMapping("/{id}")
-    Article getArticleById(@PathVariable int id) {
-        Article article = articleService.getArticleById(id);
+    public Article getArticleById(@PathVariable int id) {
+        Article article = articleService.getById(id);
         return article;
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public ResponseEntity<Void> createArticle(@RequestBody Article article) {
+    public ResponseEntity<?> createArticle(@Valid @RequestBody Article article, BindingResult result) {
+        if (result.hasErrors()) {
+            String errorMessages = result.getFieldErrors().stream()
+                    .map(err -> err.getDefaultMessage())
+                    .reduce("",(subtotal, err) -> subtotal + "\n" + err);
+            return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
+        }
         articleService.save(article);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping
-    public ResponseEntity<Void> updateArticle(@RequestBody Article article) {
+    public ResponseEntity<?> updateArticle(@Valid @RequestBody Article article, BindingResult result) {
+        if (result.hasErrors()) {
+            String errorMessages = result.getFieldErrors().stream()
+                    .map(err -> err.getDefaultMessage())
+                    .reduce("",(subtotal, err) -> subtotal + "\n" + err);
+            return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
+        }
         articleService.update(article);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -64,7 +74,20 @@ public class ArticleController {
     @PostMapping("/ids")
     public ResponseEntity<Void> deleteArticlesByIds(@RequestBody DeleteIdsRequest deleteIdsRequest) {
         List<String> ids = deleteIdsRequest.getIds();
-        articleService.deleteBySeveralIds(ids);
+        articleService.deleteByIds(ids);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PatchMapping
+    public ResponseEntity<?> updateArticle(@Valid @RequestBody ArticleWithoutContent articleWithoutContent, BindingResult result) {
+        if (result.hasErrors()) {
+            String errorMessages = result.getFieldErrors().stream()
+                    .map(err -> err.getDefaultMessage())
+                    .reduce("",(subtotal, err) -> subtotal + "\n" + err);
+            return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
+        }
+        articleService.update(articleWithoutContent);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

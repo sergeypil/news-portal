@@ -1,5 +1,6 @@
 package com.epam.controller;
 
+import com.epam.TestData;
 import com.epam.entity.Article;
 import com.epam.service.ArticleService;
 import org.junit.Before;
@@ -7,22 +8,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ArticleControllerTest {
     @Mock
     ArticleService articleService;
@@ -32,41 +31,21 @@ public class ArticleControllerTest {
 
     private MockMvc mockMvc;
 
-    Article article1;
-    Article article2;
-    List<Article> articles;
+    Article article1 = TestData.ARTICLE1;
+    Article article2 = TestData.ARTICLE2;
+    List<Article> articles = TestData.ARTICLES;
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-
-        article1 = new Article();
-        article1.setId(1L);
-        article1.setTitle("Title");
-        article1.setBrief("Brief content");
-        article1.setContent("Content");
-        article1.setCreated(new Date());
-
-        article2 = new Article();
-        article2.setId(2L);
-        article2.setTitle("Title");
-        article2.setBrief("Brief content");
-        article2.setContent("Content");
-        article2.setCreated(new Date());
-
-        articles = new ArrayList<>();
-        articles.add(article1);
-        articles.add(article2);
-
         articleController = new ArticleController(articleService);
         mockMvc = MockMvcBuilders.standaloneSetup(articleController).build();
     }
 
     @Test
-    public void getAllNews() throws Exception {
+    public void testGetAllArticles() throws Exception {
         //given
         List<Article> news = articles;
-        when(articleService.getAllArticles()).thenReturn(articles);
+        when(articleService.getAll()).thenReturn(articles);
 
         //when
         mockMvc.perform(get("/newapi/articles")
@@ -75,6 +54,32 @@ public class ArticleControllerTest {
                 .andExpect(jsonPath("$.[0].id").value(article1.getId()));
 
         //then
-        verify(articleService, times(1)).getAllArticles();
+        verify(articleService, times(1)).getAll();
     }
+
+    @Test
+    public void testGetArticleById() throws Exception {
+        //given
+        Article article = article1;
+        when(articleService.getById(article.getId())).thenReturn(article1);
+
+        //when
+        mockMvc.perform(get("/newapi/articles/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value(article.getTitle()));
+
+        //then
+        verify(articleService, times(1)).getById(article.getId());
+    }
+
+    @Test
+    public void testDeleteArticle() throws Exception {
+
+    }
+
+    @Test
+    public void testUpdateArticle() throws Exception {
+
+}
 }

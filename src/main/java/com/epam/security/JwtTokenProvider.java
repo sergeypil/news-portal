@@ -20,9 +20,11 @@ import java.util.List;
 
 @Component
 public class JwtTokenProvider {
+    private static final String HEADER_AUTHORIZATION = "Authorization";
+    private static final String PREFIX_BEARER = "Bearer ";
+    private static final String WRONG_TOKEN_EXCEPTION_MESSAGE = "JWT token is expired or invalid";
 
     private String secret = "news-portalafffffffffffffffffffffffffffffffffffffffff";
-
     private long validityInMilliseconds = 360000000;
 
 
@@ -42,10 +44,10 @@ public class JwtTokenProvider {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
-        return Jwts.builder()//
-                .setClaims(claims)//
-                .setIssuedAt(now)//
-                .setExpiration(validity)//
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(validity)
                 .signWith(SignatureAlgorithm.HS256, secret)//
                 .compact();
     }
@@ -60,8 +62,8 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest req) {
-        String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+        String bearerToken = req.getHeader(HEADER_AUTHORIZATION);
+        if (bearerToken != null && bearerToken.startsWith(PREFIX_BEARER)) {
             return bearerToken.substring(7, bearerToken.length());
         }
         return null;
@@ -77,7 +79,7 @@ public class JwtTokenProvider {
 
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            throw new JwtAuthenticationException("JWT token is expired or invalid");
+            throw new JwtAuthenticationException(WRONG_TOKEN_EXCEPTION_MESSAGE);
         }
     }
 

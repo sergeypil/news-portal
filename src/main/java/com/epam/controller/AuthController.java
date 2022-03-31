@@ -1,6 +1,7 @@
 package com.epam.controller;
 
 import com.epam.dto.AuthRequestDto;
+import com.epam.dto.AuthResponseDto;
 import com.epam.entity.User;
 import com.epam.security.JwtTokenProvider;
 import com.epam.service.UserService;
@@ -47,16 +48,19 @@ public class AuthController {
             }
 
             String token = jwtTokenProvider.createToken(user);
-
-            Map<Object, Object> response = new HashMap<>();
-            response.put("id", user.getId());
-            response.put("username", user.getUsername());
-            response.put("roles", user.getRoles());
-            response.put("token", token);
-
+            AuthResponseDto response = createAuthResponse(user, token);
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }
+    }
+
+    private AuthResponseDto createAuthResponse(User user, String token) {
+        AuthResponseDto response = new AuthResponseDto();
+        response.setId(String.valueOf(user.getId()));
+        response.setUsername(user.getUsername());
+        response.setRoles(user.getRoles());
+        response.setToken(token);
+        return response;
     }
 }

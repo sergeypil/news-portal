@@ -1,6 +1,7 @@
 package com.epam.service.impl;
 
 import com.epam.dao.ArticleDao;
+import com.epam.dto.ArticleWithoutContent;
 import com.epam.entity.Article;
 import com.epam.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,23 +19,24 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> getAllArticles() {
-        return articleDao.getAllArticles();
+    public List<Article> getAll() {
+        return articleDao.getAll();
     }
 
     @Override
-    public Article getArticleById(long id) {
-        return articleDao.getArticleById(id);
+    public Article getById(long id) {
+        return articleDao.getById(id);
     }
 
     @Override
     public void save(Article article) {
+        article.setId(0);
         articleDao.save(article);
     }
 
     @Override
     public void update(Article article) {
-        articleDao.save(article);
+        articleDao.update(article);
     }
 
     @Override
@@ -43,7 +45,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void deleteBySeveralIds(List<String> ids) {
-        articleDao.deleteBySeveralIds(ids);
+    public void deleteByIds(List<String> ids) {
+        articleDao.deleteByIds(ids);
+    }
+
+    @Override
+    public void update(ArticleWithoutContent articleWithoutContent) {
+        articleDao.update(articleWithoutContent);
     }
 }

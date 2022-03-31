@@ -15,7 +15,7 @@ public class AppWebApplicationInitializer implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-        ctx.scan("com.epam", "com.epam.security");
+        ctx.scan("com.epam", "com.epam.security", "com.epam.aspect");
         ctx.setServletContext(servletContext);
         servletContext.addListener(new ContextLoaderListener(ctx));
         //servletContext.addFilter("cors", new CorsFilter());

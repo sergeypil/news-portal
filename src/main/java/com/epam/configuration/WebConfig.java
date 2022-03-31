@@ -15,7 +15,7 @@ import java.io.IOException;
 
 @Configuration
 @EnableWebMvc
-@ImportResource("classpath:service-bean-config.xml")
+@ImportResource({"classpath:service-bean-config.xml", "classpath:aop-config.xml"})
 public class WebConfig implements WebMvcConfigurer {
 
     @Bean
@@ -40,23 +40,4 @@ public class WebConfig implements WebMvcConfigurer {
         resolver.setTemplateEngine(templateEngine());
         return resolver;
     }
-
-//    @Override
-//    public void addCorsMappings(CorsRegistry corsRegistry) {
-//        corsRegistry.addMapping("/**")
-//                .allowedOrigins("*")
-//                .allowedMethods("*")
-//                .maxAge(3600L)
-//                .allowedHeaders("*")
-//                .exposedHeaders("Authorization")
-//                .allowCredentials(true);
-//    }
-
-//    @Bean
-//    public static PropertySourcesPlaceholderConfigurer placeHolderConfigurer() throws IOException {
-//        PropertySourcesPlaceholderConfigurer conf = new PropertySourcesPlaceholderConfigurer();
-//        conf.setLocations(new ClassPathResource("logback.xml"));
-//        return conf;
-//    }
-
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:component-scan base-package="com.epam.aspect"/>
+    <aop:config>
+        <aop:pointcut id="articleDaoPointCutDelById" expression="execution(* com.epam.dao.impl.ArticleDaoImpl.deleteById(..))"/>
+        <aop:aspect ref="logAspect">
+            <aop:around method="aroundDeletingArticleById" pointcut-ref="articleDaoPointCutDelById"/>
+        </aop:aspect>
+    </aop:config>
+    <aop:config>
+        <aop:pointcut id="articleDaoPointCutDelByIds" expression="execution(* com.epam.dao.impl.ArticleDaoImpl.deleteByIds(..))"/>
+        <aop:aspect ref="logAspect">
+            <aop:around method="aroundDeletingArticlesByIds" pointcut-ref="articleDaoPointCutDelByIds"/>
+        </aop:aspect>
+    </aop:config>
+    <aop:config>
+        <aop:pointcut id="articleDaoPointCutSave" expression="execution(* com.epam.dao.impl.ArticleDaoImpl.save(..))"/>
+        <aop:aspect ref="logAspect">
+            <aop:around method="aroundSavingArticle" pointcut-ref="articleDaoPointCutSave"/>
+        </aop:aspect>
+    </aop:config>
+    <aop:config>
+        <aop:pointcut id="articleDaoPointCutUpdate" expression="execution(* com.epam.dao.impl.ArticleDaoImpl.update(com.epam.entity.Article))"/>
+        <aop:aspect ref="logAspect">
+            <aop:around method="aroundUpdatingArticleById" pointcut-ref="articleDaoPointCutUpdate"/>
+        </aop:aspect>
+    </aop:config>
+    <aop:config>
+        <aop:pointcut id="articleDaoPointCutPartialUpdate" expression="execution(* com.epam.dao.impl.ArticleDaoImpl.update(com.epam.dto.ArticleWithoutContent))"/>
+        <aop:aspect ref="logAspect">
+            <aop:around method="aroundPartialUpdatingArticleById" pointcut-ref="articleDaoPointCutPartialUpdate"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
