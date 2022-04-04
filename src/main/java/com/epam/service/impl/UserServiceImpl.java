@@ -4,10 +4,7 @@ import com.epam.dao.UserDao;
 import com.epam.entity.User;
 import com.epam.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -16,11 +13,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        return userDao.getAllUsers();
     }
 
     @Override

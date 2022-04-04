@@ -1,7 +1,6 @@
 package com.epam.entity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name="role")

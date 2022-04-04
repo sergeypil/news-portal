@@ -16,6 +16,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     public ArticleServiceImpl(ArticleDao articleDao) {
         this.articleDao = articleDao;
+
     }
 
     @Override
@@ -29,9 +30,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void save(Article article) {
+    public long save(Article article) {
         article.setId(0);
-        articleDao.save(article);
+        return articleDao.save(article);
     }
 
     @Override

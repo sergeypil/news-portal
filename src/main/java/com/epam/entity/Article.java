@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Article {
     private long id;
@@ -56,6 +57,30 @@ public class Article {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", brief='" + brief + '\'' +
+                ", content='" + content + '\'' +
+                ", created=" + created +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Article article = (Article) o;
+        return id == article.id && Objects.equals(title, article.title) && Objects.equals(brief, article.brief) && Objects.equals(content, article.content) && Objects.equals(created, article.created);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, brief, content, created);
     }
 }
 

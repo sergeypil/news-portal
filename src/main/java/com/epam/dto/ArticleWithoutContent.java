@@ -3,6 +3,7 @@ package com.epam.dto;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.Objects;
 
 public class ArticleWithoutContent {
         private long id;
@@ -45,4 +46,27 @@ public class ArticleWithoutContent {
         public void setCreated(Date created) {
             this.created = created;
         }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ArticleWithoutContent that = (ArticleWithoutContent) o;
+        return id == that.id && Objects.equals(title, that.title) && Objects.equals(brief, that.brief) && Objects.equals(created, that.created);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, brief, created);
+    }
+
+    @Override
+    public String toString() {
+        return "ArticleWithoutContent{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", brief='" + brief + '\'' +
+                ", created=" + created +
+                '}';
+    }
+}

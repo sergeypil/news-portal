@@ -7,10 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,9 +40,9 @@ public class ArticleDaoImpl implements ArticleDao {
 
     @Transactional
     @Override
-    public void save(Article article) {
+    public long save(Article article) {
         Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(article);
+        return (long)session.save(article);
     }
 
     @Transactional
