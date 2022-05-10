@@ -41,3 +41,7 @@
 # System files
 .DS_Store
 Thumbs.db
+
+.project
+.classpath
+.settings/

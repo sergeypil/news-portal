@@ -1,7 +1,7 @@
 <hibernate-mapping package="com.epam.entity">
     <class name="com.epam.entity.Article" table="article">
         <id name="id" type="long" column="id">
-            <generator class="native"/>
+            <generator class="identity"/>
         </id>
         <property name="title" type="string" column="title"/>
         <property name="brief" type="string" column="brief"/>
